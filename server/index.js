@@ -25,7 +25,6 @@ app.use((req, res) => {
       <App />
     </ServerLocation>
   );
-
   //first part of markup + rendered HTML + second part of markup
   res.send(parts[0] + renderToString(reactMarkup) + parts[1]);
   res.end();
