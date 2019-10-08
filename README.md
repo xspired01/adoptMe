@@ -6,4 +6,6 @@ This is an exercise in React. This simple React project serves as notes, practic
 
 The initial commits will just be simple script tags with React.createElement in a HTML file and CDN links. The successive commits will be with create-react-app and uses more of the tools and libraries. Some of the features will be on different branches since the verbiage for Context will conflict with Redux. Or if using tools (like Saga) to manage asynchronous code or other features it will get complex and need a different branch to avoid confusion.
 
+Follow on commits include Error Boundaries (if bad data comes in from an API, React will catch it and prevent the app from crashing), Modals (dialog box), Context, and testing with Jest.
+
 [Notes on React Hooks](docs/aboutHooks.md)
