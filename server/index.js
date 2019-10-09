@@ -1,6 +1,6 @@
 import express from "express";
 import React from "react";
-import { renderToString } from "react-dom/server";
+import { renderToNodeStream } from "react-dom/server";
 import { ServerLocation } from "@reach/router";
 import fs from "fs";
 import App from "../src/App";
@@ -20,14 +20,27 @@ const app = express();
 app.use("/dist", express.static("dist"));
 
 app.use((req, res) => {
+  //immediately give the users one piece of webpage
+  res.write(parts[0]);
   const reactMarkup = (
     <ServerLocation url={req.url}>
       <App />
     </ServerLocation>
   );
-  //first part of markup + rendered HTML + second part of markup
-  res.send(parts[0] + renderToString(reactMarkup) + parts[1]);
-  res.end();
+  //
+  const stream = renderToNodeStream(reactMarkup);
+
+  //pipe markup into response, don't end it when it's done
+  stream.pipe(
+    res,
+    { end: false }
+  );
+
+  //when finished write other part of html and end connection
+  stream.on("end", () => {
+    res.write(parts[1]);
+    res.end();
+  });
 });
 
 console.log(`listening on ${PORT}`);
