@@ -8,13 +8,13 @@ The more advanced server side rendering is incremental rendering. Instead of sen
 
 ## Server Side Rendering to Strings
 
-On the backend an express server is created with Node.js. On the frontend, a ClientApp.js is created. Instead of using the render function from React DOM, the hydrate function is used. Whereas render deletes whatever markup is present and re-renders the whole page, hydrate just takes the markup in App and passes it to the server.
+On the backend an express server is created with Node.js. On the frontend, a ClientApp.js is created. ClientApp takes in App and passes it to the server with a function. Instead of using the render function from React DOM, the hydrate function is used. Whereas render deletes whatever markup is present and re-renders the whole page, hydrate just takes the markup in App and passes it to the server.
 
 ```
 hydrate(<App />, document.getElementById("root"));
 ```
 
-Hydrate passes the App to the server and the server sends the html and markup to the user.
+Hydrate passes the App to the server and the server sends the html and markup to the user. ServerLocation is a specific component of Reach Router.
 
 ```
 app.use((req, res) => {
